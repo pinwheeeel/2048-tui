@@ -1,0 +1,64 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-slim
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Go
+        uses: actions/setup-go@v7
+        with:
+          go-version-file: 'go.mod'
+
+      - name: Test
+        run: go test -v ./...
+
+  build:
+    runs-on: ubuntu-slim
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Go
+        uses: actions/setup-go@v7
+        with:
+          go-version-file: 'go.mod'
+
+      - name: Build
+        run: |
+            mkdir -p dist
+
+            for GOOS in linux windows darwin; do
+              for GOARCH in amd64 arm64; do
+                ext=""
+
+                if [ "${GOOS}" = "windows" ]; then
+                  if [ "${GOARCH}" = "arm64" ]; then
+                    continue
+                  fi
+
+                  ext=".exe"
+                fi
+
+                GOOS=${GOOS}
+                GOARCH=${GOARCH}
+                go build -v -o dist/2048-tui-${GOOS}-${GOARCH}${ext} .
+              done
+            done
+
+      - name: chmod +x
+        run: chmod +x dist/2048-tui-*
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: 2048-tui
+          path: dist/*
