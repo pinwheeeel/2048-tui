@@ -68,6 +68,9 @@ func (grid *Grid) moveTiles(dir Direction) (changed bool, scoreDelta int, bestTi
 		k := 0
 		for _, j := range js[1:] {
 			p := js[k]
+
+			bestTile = max(bestTile, grid[i][p], grid[i][j])
+
 			var u, v *int
 			if dir == left || dir == right {
 				u, v = &grid[i][p], &grid[i][j]

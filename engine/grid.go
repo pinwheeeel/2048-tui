@@ -51,3 +51,14 @@ func (g *Grid) at(row, col int) (int, error) {
 	}
 	return g[row][col], nil
 }
+
+func (g *Grid) equals(other *Grid) bool {
+	for i := range 4 {
+		for j := range 4 {
+			if g[i][j] != other[i][j] {
+				return false
+			}
+		}
+	}
+	return true
+}

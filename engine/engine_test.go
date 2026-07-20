@@ -87,7 +87,6 @@ func TestSeedReproducibility(t *testing.T) {
 			for j := range 4 {
 				if e1.grid[i][j] != e2.grid[i][j] {
 					t.Errorf("seed %d: grid mismatch at (%d, %d)", seed, i, j)
-
 				}
 			}
 		}
