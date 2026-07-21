@@ -30,7 +30,8 @@ func (e *Engine) applyMove(dir Direction) (changed bool, err error) {
 
 	e.score += scoreDelta
 
-	grid.spawnRandomTile(e.rng)
+	newestTile, _ := grid.spawnRandomTile(e.rng)
+	e.newestTile = newestTile
 
 	if bestTile == 2048 {
 		e.status = Won

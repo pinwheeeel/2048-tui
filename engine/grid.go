@@ -7,13 +7,21 @@ import (
 
 type Grid [4][4]int
 
-func initGrid(rng *rand.Rand) *Grid {
-	g := &Grid{}
-	g.spawnRandomTile(rng)
-	return g
+type coordinate struct {
+	X, Y int
 }
 
-func (g *Grid) spawnRandomTile(rng *rand.Rand) (ok bool) {
+func initGrid(rng *rand.Rand) (grid *Grid, newestTile *coordinate) {
+	g := &Grid{}
+	location, ok := g.spawnRandomTile(rng)
+	if !ok {
+		return grid, nil
+	}
+
+	return g, location
+}
+
+func (g *Grid) spawnRandomTile(rng *rand.Rand) (location *coordinate, ok bool) {
 	available := make([][2]int, 0, 16)
 
 	for i := range 4 {
@@ -25,7 +33,7 @@ func (g *Grid) spawnRandomTile(rng *rand.Rand) (ok bool) {
 	}
 
 	if len(available) == 0 {
-		return false
+		return nil, false
 	}
 
 	idx := available[rng.Intn(len(available))]
@@ -37,7 +45,7 @@ func (g *Grid) spawnRandomTile(rng *rand.Rand) (ok bool) {
 	}
 	g[i][j] = newTileValue
 
-	return true
+	return &coordinate{X: j, Y: i}, true
 }
 
 func (g *Grid) isFilled() bool {

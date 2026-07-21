@@ -5,11 +5,12 @@ import (
 )
 
 type Engine struct {
-	grid     *Grid
-	score    int
-	bestTile int
-	rng      *rand.Rand
-	status   GameStatus
+	grid       *Grid
+	score      int
+	bestTile   int
+	newestTile *coordinate
+	rng        *rand.Rand
+	status     GameStatus
 }
 
 type GameStatus int
@@ -26,14 +27,15 @@ func New() *Engine {
 
 func NewWithSeed(seed int64) *Engine {
 	rng := rand.New(rand.NewSource(seed))
-	grid := initGrid(rng)
+	grid, newestTile := initGrid(rng)
 
 	return &Engine{
-		grid:     grid,
-		score:    0,
-		bestTile: 2,
-		rng:      rng,
-		status:   Playing,
+		grid:       grid,
+		score:      0,
+		bestTile:   2,
+		newestTile: newestTile,
+		rng:        rng,
+		status:     Playing,
 	}
 }
 
@@ -47,4 +49,8 @@ func (e *Engine) Score() int {
 
 func (e *Engine) Status() GameStatus {
 	return e.status
+}
+
+func (e *Engine) NewestTile() coordinate {
+	return *e.newestTile
 }
