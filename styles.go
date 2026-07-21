@@ -56,3 +56,7 @@ func initTileStyles() map[int]lipgloss.Style {
 
 	return s
 }
+
+func toNewTileStyle(s lipgloss.Style) lipgloss.Style {
+	return s.Foreground(lipgloss.Color("#CC9E00"))
+}

@@ -36,7 +36,9 @@ func (m *model) renderBoard() string {
 		for j := range 4 {
 			v, _ := m.engine.GridAt(i, j)
 
-			cols[j] = m.renderTile(v)
+			newestTile := m.engine.NewestTile()
+			isNewTile := newestTile.X == j && newestTile.Y == i
+			cols[j] = m.renderTile(v, isNewTile)
 		}
 
 		rows[i] = lipgloss.JoinHorizontal(lipgloss.Top, cols...)
@@ -48,13 +50,16 @@ func (m *model) renderBoard() string {
 	return boardStyle.Render(board)
 }
 
-func (m *model) renderTile(v int) string {
+func (m *model) renderTile(v int, isNewTile bool) string {
 	text := " "
 	if v != 0 {
 		text = strconv.Itoa(v)
 	}
 
 	tileStyle := m.styles.tiles[v]
+	if isNewTile {
+		tileStyle = toNewTileStyle(tileStyle)
+	}
 	return tileStyle.Render(text)
 }
 
