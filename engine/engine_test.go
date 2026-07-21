@@ -16,8 +16,8 @@ func TestEngineConstruction(t *testing.T) {
 	if e.score != 0 {
 		t.Errorf("score is not 0")
 	}
-	if e.bestTile != 2 {
-		t.Errorf("bestTile is not 2")
+	if e.bestTile != 2 && e.bestTile != 4 {
+		t.Errorf("bestTile is not 2 or 4")
 	}
 	if e.status != Playing {
 		t.Errorf("status is not Playing")
@@ -65,8 +65,8 @@ func TestNewGame(t *testing.T) {
 			if tileValue != 0 {
 				startingTiles++
 
-				if tileValue != 2 {
-					t.Errorf("tile value is not 2")
+				if tileValue != 2 && tileValue != 4 {
+					t.Errorf("tile value is not 2 or 4")
 				}
 			}
 		}

@@ -30,7 +30,13 @@ func (g *Grid) spawnRandomTile(rng *rand.Rand) (ok bool) {
 
 	idx := available[rng.Intn(len(available))]
 	i, j := idx[0], idx[1]
-	g[i][j] = 2
+
+	newTileValue := 2
+	if n := rng.Intn(10); n == 0 {
+		newTileValue = 4
+	}
+	g[i][j] = newTileValue
+
 	return true
 }
 

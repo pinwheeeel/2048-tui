@@ -302,7 +302,7 @@ func TestEngineSimulateGoodMove(t *testing.T) {
 			}
 			tileValue := e.grid[i][j]
 			if tileValue != 0 {
-				if tileValue != 2 {
+				if tileValue != 2 && tileValue != 4 {
 					t.Errorf("new tile should be 2, got %d", tileValue)
 				}
 				newTiles++
