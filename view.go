@@ -24,7 +24,10 @@ func (m *model) View() tea.View {
 		lipgloss.Center,
 		content,
 	)
-	return tea.NewView(box)
+
+	v := tea.NewView(box)
+	v.AltScreen = true
+	return v
 }
 
 func (m *model) renderBoard() string {
