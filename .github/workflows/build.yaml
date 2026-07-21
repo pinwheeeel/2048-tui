@@ -48,9 +48,7 @@ jobs:
                   ext=".exe"
                 fi
 
-                GOOS=${GOOS}
-                GOARCH=${GOARCH}
-                go build -v -o dist/2048-tui-${GOOS}-${GOARCH}${ext} .
+                GOOS=${GOOS} GOARCH=${GOARCH} go build -o dist/2048-tui-${GOOS}-${GOARCH}${ext} .
               done
             done
 
