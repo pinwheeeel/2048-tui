@@ -4,6 +4,9 @@ A terminal based implementation of the classic **2048** puzzle game, written in 
 
 Move the tiles, combine them to create larger numbers, and try to reach 2048, all within the command line!
 
+## Demo
+<img width="2821" height="1696" alt="Screenshot_20260721_180847" src="https://github.com/user-attachments/assets/1a86c1eb-b41f-4ffe-baae-43df9e5738db" />
+
 ## Installation
 
 Grab a pre-built binary in the [releases page](https://github.com/pinwheeeel/2048-tui/releases)
